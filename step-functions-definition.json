@@ -1,0 +1,32 @@
+{
+    "Comment": "Fluxo de trabalho para processamento de pedidos de delivery",
+    "StartAt": "ReceberPedido",
+    "States": {
+      "ReceberPedido": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:ReceberPedido",
+        "Next": "ValidarPedido"
+      },
+      "ValidarPedido": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:ValidarPedido",
+        "Next": "ProcessarPagamento"
+      },
+      "ProcessarPagamento": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:ProcessarPagamento",
+        "Next": "AtualizarStatus"
+      },
+      "AtualizarStatus": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:AtualizarStatus",
+        "Next": "NotificarCliente"
+      },
+      "NotificarCliente": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:NotificarCliente",
+        "End": true
+      }
+    }
+  }
+  
